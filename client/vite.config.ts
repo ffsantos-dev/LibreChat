@@ -8,6 +8,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
+  base: '/librechat/',
   server: {
     host: 'localhost',
     port: 3090,
@@ -54,7 +55,7 @@ export default defineConfig(({ command }) => ({
       manifest: {
         name: 'LibreChat',
         short_name: 'LibreChat',
-        start_url: '/',
+        start_url: '/librechat/',
         display: 'standalone',
         background_color: '#000000',
         theme_color: '#009688',

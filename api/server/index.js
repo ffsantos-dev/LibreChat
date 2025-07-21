@@ -8,7 +8,7 @@ const express = require('express');
 const passport = require('passport');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const { isEnabled } = require('@librechat/api');
+const { isEnabled } = require('@librechat/librechat/api');
 const { logger } = require('@librechat/data-schemas');
 const mongoSanitize = require('express-mongo-sanitize');
 const { connectDb, indexSync } = require('~/db');
@@ -68,9 +68,9 @@ const startServer = async () => {
   }
 
   // Serve static assets with aggressive caching
-  app.use(staticCache(app.locals.paths.dist));
-  app.use(staticCache(app.locals.paths.fonts));
-  app.use(staticCache(app.locals.paths.assets));
+  app.use('/librechat/', staticCache(app.locals.paths.dist));
+  app.use('/librechat/', staticCache(app.locals.paths.fonts));
+  app.use('/librechat/', staticCache(app.locals.paths.assets));
 
   if (!ALLOW_SOCIAL_LOGIN) {
     console.warn('Social logins are disabled. Set ALLOW_SOCIAL_LOGIN=true to enable them.');
@@ -92,33 +92,33 @@ const startServer = async () => {
 
   app.use('/oauth', routes.oauth);
   /* API Endpoints */
-  app.use('/api/auth', routes.auth);
-  app.use('/api/actions', routes.actions);
-  app.use('/api/keys', routes.keys);
-  app.use('/api/user', routes.user);
-  app.use('/api/search', routes.search);
-  app.use('/api/edit', routes.edit);
-  app.use('/api/messages', routes.messages);
-  app.use('/api/convos', routes.convos);
-  app.use('/api/presets', routes.presets);
-  app.use('/api/prompts', routes.prompts);
-  app.use('/api/categories', routes.categories);
-  app.use('/api/tokenizer', routes.tokenizer);
-  app.use('/api/endpoints', routes.endpoints);
-  app.use('/api/balance', routes.balance);
-  app.use('/api/models', routes.models);
-  app.use('/api/plugins', routes.plugins);
-  app.use('/api/config', routes.config);
-  app.use('/api/assistants', routes.assistants);
-  app.use('/api/files', await routes.files.initialize());
-  app.use('/images/', validateImageRequest, routes.staticRoute);
-  app.use('/api/share', routes.share);
-  app.use('/api/roles', routes.roles);
-  app.use('/api/agents', routes.agents);
-  app.use('/api/banner', routes.banner);
-  app.use('/api/memories', routes.memories);
-  app.use('/api/tags', routes.tags);
-  app.use('/api/mcp', routes.mcp);
+  app.use('/librechat/api/auth', routes.auth);
+  app.use('/librechat/api/actions', routes.actions);
+  app.use('/librechat/api/keys', routes.keys);
+  app.use('/librechat/api/user', routes.user);
+  app.use('/librechat/api/search', routes.search);
+  app.use('/librechat/api/edit', routes.edit);
+  app.use('/librechat/api/messages', routes.messages);
+  app.use('/librechat/api/convos', routes.convos);
+  app.use('/librechat/api/presets', routes.presets);
+  app.use('/librechat/api/prompts', routes.prompts);
+  app.use('/librechat/api/categories', routes.categories);
+  app.use('/librechat/api/tokenizer', routes.tokenizer);
+  app.use('/librechat/api/endpoints', routes.endpoints);
+  app.use('/librechat/api/balance', routes.balance);
+  app.use('/librechat/api/models', routes.models);
+  app.use('/librechat/api/plugins', routes.plugins);
+  app.use('/librechat/api/config', routes.config);
+  app.use('/librechat/api/assistants', routes.assistants);
+  app.use('/librechat/api/files', await routes.files.initialize());
+  app.use('/librechat/images/', validateImageRequest, routes.staticRoute);
+  app.use('/librechat/api/share', routes.share);
+  app.use('/librechat/api/roles', routes.roles);
+  app.use('/librechat/api/agents', routes.agents);
+  app.use('/librechat/api/banner', routes.banner);
+  app.use('/librechat/api/memories', routes.memories);
+  app.use('/librechat/api/tags', routes.tags);
+  app.use('/librechat/api/mcp', routes.mcp);
 
   // Add the error controller one more time after all routes
   app.use(errorController);

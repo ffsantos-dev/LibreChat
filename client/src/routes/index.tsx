@@ -109,4 +109,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+  ],
+  { basename: '/librechat/' },
+);

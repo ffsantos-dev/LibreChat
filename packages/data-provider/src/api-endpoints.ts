@@ -20,30 +20,30 @@ const buildQuery = (params: Record<string, unknown>): string => {
   return query ? `?${query}` : '';
 };
 
-export const health = () => '/health';
-export const user = () => '/api/user';
+export const health = () => '/librechat/health';
+export const user = () => '/librechat/api/user';
 
-export const balance = () => '/api/balance';
+export const balance = () => '/librechat/api/balance';
 
-export const userPlugins = () => '/api/user/plugins';
+export const userPlugins = () => '/librechat/api/user/plugins';
 
-export const deleteUser = () => '/api/user/delete';
+export const deleteUser = () => '/librechat/api/user/delete';
 
 export const messages = (params: q.MessagesListParams) => {
   const { conversationId, messageId, ...rest } = params;
 
   if (conversationId && messageId) {
-    return `/api/messages/${conversationId}/${messageId}`;
+    return `/librechat/api/messages/${conversationId}/${messageId}`;
   }
 
   if (conversationId) {
-    return `/api/messages/${conversationId}`;
+    return `/librechat/api/messages/${conversationId}`;
   }
 
-  return `/api/messages${buildQuery(rest)}`;
+  return `/librechat/api/messages${buildQuery(rest)}`;
 };
 
-const shareRoot = '/api/share';
+const shareRoot = '/librechat/api/share';
 export const shareMessages = (shareId: string) => `${shareRoot}/${shareId}`;
 export const getSharedLink = (conversationId: string) => `${shareRoot}/link/${conversationId}`;
 export const getSharedLinks = (
@@ -60,7 +60,7 @@ export const getSharedLinks = (
 export const createSharedLink = (conversationId: string) => `${shareRoot}/${conversationId}`;
 export const updateSharedLink = (shareId: string) => `${shareRoot}/${shareId}`;
 
-const keysEndpoint = '/api/keys';
+const keysEndpoint = '/librechat/api/keys';
 
 export const keys = () => keysEndpoint;
 
@@ -70,7 +70,7 @@ export const revokeUserKey = (name: string) => `${keysEndpoint}/${name}`;
 
 export const revokeAllUserKeys = () => `${keysEndpoint}?all=true`;
 
-export const conversationsRoot = '/api/convos';
+export const conversationsRoot = '/librechat/api/convos';
 
 export const conversations = (params: q.ConversationListParams) => {
   return `${conversationsRoot}${buildQuery(params)}`;
@@ -93,48 +93,48 @@ export const forkConversation = () => `${conversationsRoot}/fork`;
 export const duplicateConversation = () => `${conversationsRoot}/duplicate`;
 
 export const search = (q: string, cursor?: string | null) =>
-  `/api/search?q=${q}${cursor ? `&cursor=${cursor}` : ''}`;
+  `/librechat/api/search?q=${q}${cursor ? `&cursor=${cursor}` : ''}`;
 
-export const searchEnabled = () => '/api/search/enable';
+export const searchEnabled = () => '/librechat/api/search/enable';
 
-export const presets = () => '/api/presets';
+export const presets = () => '/librechat/api/presets';
 
-export const deletePreset = () => '/api/presets/delete';
+export const deletePreset = () => '/librechat/api/presets/delete';
 
-export const aiEndpoints = () => '/api/endpoints';
+export const aiEndpoints = () => '/librechat/api/endpoints';
 
-export const endpointsConfigOverride = () => '/api/endpoints/config/override';
+export const endpointsConfigOverride = () => '/librechat/api/endpoints/config/override';
 
-export const models = () => '/api/models';
+export const models = () => '/librechat/api/models';
 
-export const tokenizer = () => '/api/tokenizer';
+export const tokenizer = () => '/librechat/api/tokenizer';
 
-export const login = () => '/api/auth/login';
+export const login = () => '/librechat/api/auth/login';
 
-export const logout = () => '/api/auth/logout';
+export const logout = () => '/librechat/api/auth/logout';
 
-export const register = () => '/api/auth/register';
+export const register = () => '/librechat/api/auth/register';
 
-export const loginFacebook = () => '/api/auth/facebook';
+export const loginFacebook = () => '/librechat/api/auth/facebook';
 
-export const loginGoogle = () => '/api/auth/google';
+export const loginGoogle = () => '/librechat/api/auth/google';
 
 export const refreshToken = (retry?: boolean) =>
-  `/api/auth/refresh${retry === true ? '?retry=true' : ''}`;
+  `/librechat/api/auth/refresh${retry === true ? '?retry=true' : ''}`;
 
-export const requestPasswordReset = () => '/api/auth/requestPasswordReset';
+export const requestPasswordReset = () => '/librechat/api/auth/requestPasswordReset';
 
-export const resetPassword = () => '/api/auth/resetPassword';
+export const resetPassword = () => '/librechat/api/auth/resetPassword';
 
-export const verifyEmail = () => '/api/user/verify';
+export const verifyEmail = () => '/librechat/api/user/verify';
 
-export const resendVerificationEmail = () => '/api/user/verify/resend';
+export const resendVerificationEmail = () => '/librechat/api/user/verify/resend';
 
-export const plugins = () => '/api/plugins';
+export const plugins = () => '/librechat/api/plugins';
 
-export const config = () => '/api/config';
+export const config = () => '/librechat/api/config';
 
-export const prompts = () => '/api/prompts';
+export const prompts = () => '/librechat/api/prompts';
 
 export const assistants = ({
   path = '',
@@ -149,7 +149,7 @@ export const assistants = ({
   version: number | string;
   isAvatar?: boolean;
 }) => {
-  let url = isAvatar === true ? `${images()}/assistants` : `/api/assistants/v${version}`;
+  let url = isAvatar === true ? `${images()}/assistants` : `/librechat/api/assistants/v${version}`;
 
   if (path && path !== '') {
     url += `/${path}`;
@@ -171,7 +171,7 @@ export const assistants = ({
 };
 
 export const agents = ({ path = '', options }: { path?: string; options?: object }) => {
-  let url = '/api/agents';
+  let url = '/librechat/api/agents';
 
   if (path && path !== '') {
     url += `/${path}`;
@@ -187,13 +187,13 @@ export const agents = ({ path = '', options }: { path?: string; options?: object
 
 export const revertAgentVersion = (agent_id: string) => `${agents({ path: `${agent_id}/revert` })}`;
 
-export const files = () => '/api/files';
-export const fileUpload = () => '/api/files';
-export const fileDelete = () => '/api/files';
+export const files = () => '/librechat/api/files';
+export const fileUpload = () => '/librechat/api/files';
+export const fileDelete = () => '/librechat/api/files';
 export const fileDownload = (userId: string, fileId: string) =>
-  `/api/files/download/${userId}/${fileId}`;
-export const fileConfig = () => '/api/files/config';
-export const agentFiles = (agentId: string) => `/api/files/agent/${agentId}`;
+  `/librechat/api/files/download/${userId}/${fileId}`;
+export const fileConfig = () => '/librechat/api/files/config';
+export const agentFiles = (agentId: string) => `/librechat/api/files/agent/${agentId}`;
 
 export const images = () => `${files()}/images`;
 
@@ -250,12 +250,12 @@ export const deletePrompt = ({ _id, groupId }: { _id: string; groupId: string })
   return `${prompts()}/${_id}?groupId=${groupId}`;
 };
 
-export const getCategories = () => '/api/categories';
+export const getCategories = () => '/librechat/api/categories';
 
 export const getAllPromptGroups = () => `${prompts()}/all`;
 
 /* Roles */
-export const roles = () => '/api/roles';
+export const roles = () => '/librechat/api/roles';
 export const getRole = (roleName: string) => `${roles()}/${roleName.toLowerCase()}`;
 export const updatePromptPermissions = (roleName: string) => `${getRole(roleName)}/prompts`;
 export const updateMemoryPermissions = (roleName: string) => `${getRole(roleName)}/memories`;
@@ -263,7 +263,7 @@ export const updateAgentPermissions = (roleName: string) => `${getRole(roleName)
 
 /* Conversation Tags */
 export const conversationTags = (tag?: string) =>
-  `/api/tags${tag != null && tag ? `/${encodeURIComponent(tag)}` : ''}`;
+  `/librechat/api/tags${tag != null && tag ? `/${encodeURIComponent(tag)}` : ''}`;
 
 export const conversationTagsList = (pageNumber: string, sort?: string, order?: string) =>
   `${conversationTags()}/list?pageNumber=${pageNumber}${sort ? `&sort=${sort}` : ''}${
@@ -273,23 +273,23 @@ export const conversationTagsList = (pageNumber: string, sort?: string, order?: 
 export const addTagToConversation = (conversationId: string) =>
   `${conversationTags()}/convo/${conversationId}`;
 
-export const userTerms = () => '/api/user/terms';
-export const acceptUserTerms = () => '/api/user/terms/accept';
-export const banner = () => '/api/banner';
+export const userTerms = () => '/librechat/api/user/terms';
+export const acceptUserTerms = () => '/librechat/api/user/terms/accept';
+export const banner = () => '/librechat/api/banner';
 
 // Message Feedback
 export const feedback = (conversationId: string, messageId: string) =>
-  `/api/messages/${conversationId}/${messageId}/feedback`;
+  `/librechat/api/messages/${conversationId}/${messageId}/feedback`;
 
 // Two-Factor Endpoints
-export const enableTwoFactor = () => '/api/auth/2fa/enable';
-export const verifyTwoFactor = () => '/api/auth/2fa/verify';
-export const confirmTwoFactor = () => '/api/auth/2fa/confirm';
-export const disableTwoFactor = () => '/api/auth/2fa/disable';
-export const regenerateBackupCodes = () => '/api/auth/2fa/backup/regenerate';
-export const verifyTwoFactorTemp = () => '/api/auth/2fa/verify-temp';
+export const enableTwoFactor = () => '/librechat/api/auth/2fa/enable';
+export const verifyTwoFactor = () => '/librechat/api/auth/2fa/verify';
+export const confirmTwoFactor = () => '/librechat/api/auth/2fa/confirm';
+export const disableTwoFactor = () => '/librechat/api/auth/2fa/disable';
+export const regenerateBackupCodes = () => '/librechat/api/auth/2fa/backup/regenerate';
+export const verifyTwoFactorTemp = () => '/librechat/api/auth/2fa/verify-temp';
 
 /* Memories */
-export const memories = () => '/api/memories';
+export const memories = () => '/librechat/api/memories';
 export const memory = (key: string) => `${memories()}/${encodeURIComponent(key)}`;
 export const memoryPreferences = () => `${memories()}/preferences`;
