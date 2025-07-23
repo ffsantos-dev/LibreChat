@@ -986,9 +986,9 @@ export const initialModelsConfig: TModelsConfig = {
 };
 
 export const EndpointURLs = {
-  [EModelEndpoint.assistants]: '/api/assistants/v2/chat',
-  [EModelEndpoint.azureAssistants]: '/api/assistants/v1/chat',
-  [EModelEndpoint.agents]: `/api/${EModelEndpoint.agents}/chat`,
+  [EModelEndpoint.assistants]: '/librechat/api/assistants/v2/chat',
+  [EModelEndpoint.azureAssistants]: '/librechat/api/assistants/v1/chat',
+  [EModelEndpoint.agents]: `/librechat/api/${EModelEndpoint.agents}/chat`,
 } as const;
 
 export const modularEndpoints = new Set<EModelEndpoint | string>([

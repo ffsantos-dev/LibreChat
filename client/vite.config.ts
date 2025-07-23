@@ -8,6 +8,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
+  base: '/librechat/',
   server: {
     host: 'localhost',
     port: 3090,
@@ -48,13 +49,13 @@ export default defineConfig(({ command }) => ({
         ],
         globIgnores: ['images/**/*', '**/*.map', 'index.html'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-        navigateFallbackDenylist: [/^\/oauth/, /^\/api/],
+        navigateFallbackDenylist: [/^\/librechat\/oauth/, /^\/librechat\/api/],
       },
       includeAssets: [],
       manifest: {
         name: 'LibreChat',
         short_name: 'LibreChat',
-        start_url: '/',
+        start_url: '/librechat/',
         display: 'standalone',
         background_color: '#000000',
         theme_color: '#009688',
