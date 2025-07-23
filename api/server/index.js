@@ -8,7 +8,7 @@ const express = require('express');
 const passport = require('passport');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const { isEnabled } = require('@librechat/librechat/api');
+const { isEnabled } = require('@librechat/api');
 const { logger } = require('@librechat/data-schemas');
 const mongoSanitize = require('express-mongo-sanitize');
 const { connectDb, indexSync } = require('~/db');
@@ -51,7 +51,7 @@ const startServer = async () => {
   const indexPath = path.join(app.locals.paths.dist, 'index.html');
   const indexHTML = fs.readFileSync(indexPath, 'utf8');
 
-  app.get('/health', (_req, res) => res.status(200).send('OK'));
+  app.get('/librechat/health', (_req, res) => res.status(200).send('OK'));
 
   /* Middleware */
   app.use(noIndex);
@@ -90,7 +90,7 @@ const startServer = async () => {
     await configureSocialLogins(app);
   }
 
-  app.use('/oauth', routes.oauth);
+  app.use('/librechat/oauth', routes.oauth);
   /* API Endpoints */
   app.use('/librechat/api/auth', routes.auth);
   app.use('/librechat/api/actions', routes.actions);

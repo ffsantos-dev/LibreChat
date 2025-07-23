@@ -134,7 +134,7 @@ axios.interceptors.response.use(
             `Refresh token failed from shared link, attempting request to ${originalRequest.url}`,
           );
         } else {
-          window.location.href = '/login';
+          window.location.href = '/librechat/login';
         }
       } catch (err) {
         processQueue(err as AxiosError, null);
